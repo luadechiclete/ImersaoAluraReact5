@@ -1,3 +1,5 @@
+import config from "../config.json";
+
 function HomePage() {
     const estiloDasHomePages = { backgroundColor: "red" };
     return (
@@ -22,7 +24,11 @@ function HomePage() {
   function Header() {
     return (
         <div>
-            Header
+            <img src="banner" />
+            <img src={`https://github.com/${config.github}.png`} />
+            {config.name}
+            {config.job}
+            
         </div>
     )
   }
