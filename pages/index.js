@@ -3,26 +3,27 @@ import styled from "styled-components";
 
 function HomePage() {
     const estiloDasHomePages = { backgroundColor: "red" };
+
     return (
-        <div style={estiloDasHomePages} > 
+        <div style={estiloDasHomePages} >
             <Menu />
             <Header />
-            <Timeline />
+            <Timeline playlists={config.playlists} />
         </div>
     )
-  }
-  
-  export default HomePage
+}
 
-  function Menu() {
+export default HomePage
+
+function Menu() {
     return (
         <div>
             Menu
         </div>
     )
-  }
+}
 
-  const StyledHeader = styled.div`
+const StyledHeader = styled.div`
     img {
         width: 80px;
         height: 80px;
@@ -36,24 +37,53 @@ function HomePage() {
         gap: 16px;
     }
   `;
-  function Header() {
+function Header() {
     return (
         <StyledHeader>
             {/*<img src="banner" />*/}
+
             <section className="user-info">
                 <img src={`https://github.com/${config.github}.png`} />
-                {config.name}
-                {config.job}
+
+                <div>
+                    <h2>
+                        {config.name}
+                    </h2>
+                    <p>
+                        {config.job}
+                    </p>
+                </div>
+
             </section>
-            
+
         </StyledHeader>
     )
-  }
+}
 
-  function Timeline() {
+function Timeline(propriedades) {
+    const playlistsNames = Object.keys(propriedades.playlists);
     return (
         <div>
-            Timeline
+            {playlistsNames.map((playlistsName) => {
+                const videos = propriedades.playlists[playlistsName];
+                return (
+                    <section>
+                        <h2>{playlistsName}</h2>
+                        <div>
+                            {videos.map((video) => {
+                                return (
+                                    <a href={video.url}>
+                                        <img src={video.thumb} />
+                                        <span>
+                                            {video.title}
+                                        </span>
+                                    </a>
+                                )
+                            })}
+                        </div>
+                    </section>
+                )
+            })}
         </div>
     )
-  }
+}
